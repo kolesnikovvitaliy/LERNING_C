@@ -95,7 +95,7 @@ void openAdminMenu(void);
 // #define ENABLE_DEBUG
 
 #ifdef ENABLE_DEBUG
-    #define LOG(msg) printf("\({\color{#d4a727}\text{[LOG]}}\) %s\n", msg)
+    #define LOG(msg) printf("\(${\color{#d4a727}\text{[LOG]}}$\) %s\n", msg)
 #else
     #define LOG(msg) // 💨 В релизе макрос превращается в пустоту и ничего не делает
 #endif
@@ -105,3 +105,5 @@ int main() {
     return 0;
 }
 ```
+[![Назад](https://shields.io—_Назад-333333?style=for-the-badge&logo=arrow-left)](ttps://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора)
+
