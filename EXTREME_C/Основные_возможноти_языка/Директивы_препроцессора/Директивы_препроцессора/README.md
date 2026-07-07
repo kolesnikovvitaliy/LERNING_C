@@ -112,3 +112,5 @@ struct PackedData {
 gcc -E main.c -o preprocessed_main.i
 ```
 После этого откройте файл `preprocessed_main.i` — там вы увидите чистый Си-код, готовый к компиляции.
+
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора)

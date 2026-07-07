@@ -105,5 +105,5 @@ int main() {
     return 0;
 }
 ```
-[![Назад](https://shields.io—_Назад-333333?style=for-the-badge&logo=arrow-left)](ttps://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора)
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора)
 

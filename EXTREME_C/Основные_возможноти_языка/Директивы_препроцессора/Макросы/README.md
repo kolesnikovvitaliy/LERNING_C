@@ -119,3 +119,5 @@ CHECK_CONDITION(ptr != NULL);
 gcc -E main.c -o expanded_main.i
 ```
 Откройте файл `expanded_main.i` — внутри него все ваши `SQUARE`, `MAKE_VAR` и `__LINE__` уже будут заменены на итоговый Си-код.
+
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора)
