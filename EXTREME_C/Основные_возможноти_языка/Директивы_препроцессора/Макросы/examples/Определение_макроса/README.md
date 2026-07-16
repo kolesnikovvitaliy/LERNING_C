@@ -147,3 +147,7 @@ gcc -E demo_macro_substitution_in_main.c -o preprocessed_code.i
 
 ---
 📎 **Смотрите также:** `ABC` (Связанные директивы препроцессора в документации Doxygen).
+
+---
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора/Макросы/examples)
+---

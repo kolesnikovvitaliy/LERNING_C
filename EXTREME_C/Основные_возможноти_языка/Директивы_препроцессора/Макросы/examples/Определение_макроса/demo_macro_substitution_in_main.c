@@ -39,7 +39,6 @@
 #define ABC 5
 
 int demo_macro_substitution_in_main(int argc, char **argv)
- *
 {
     int x = 2;
     int y = ABC; /**< Здесь препроцессор заменит ABC на 5 */
