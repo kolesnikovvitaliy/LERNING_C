@@ -1,9 +1,4 @@
 # 🛠️ Variadic Macro Demo & Argument Validator
-
-![C Version](https://shields.io)
-![Version](https://shields.io)
-![License](https://shields.io)
-
 Демонстрационный проект на языке СИ, иллюстрирующий механизмы развертывания **вариативных макросов** (`variadic macros`) и построение строгой системы валидации аргументов командной строки.
 
 ---
