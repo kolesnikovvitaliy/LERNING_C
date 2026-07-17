@@ -20,14 +20,14 @@
 
 ```mermaid
 graph TD
-    Start([🚀 Запуск программы]) --> CheckCount{Проверка: argc < 3?}
+    Start([🚀 Запуск программы]) --> CheckCount{"Проверка: argc < 3?"}"
 
     %% Ветка проверки количества
     CheckCount -- Да (Недостаточно) --> LogErr1[/"Вызов LOG_ERROR:<br>'Invalid number of arguments...'"/]
     LogErr1 --> Exit1(["🛑 exit(1)"])
 
     %% Ветка проверки флага
-    CheckCount -- Нет (Достаточно) --> CheckFlag{Проверка:<br>strcmp(argv[1], '-n') == 0?}
+    CheckCount -- Нет (Достаточно) --> CheckFlag{"Проверка:<br>strcmp(argv[1], '-n') == 0?"}
 
     CheckFlag -- Нет (Неверный флаг) --> LogErr2[/"Вызов LOG_ERROR:<br>'... is a wrong param...'"/]
     LogErr2 --> Exit2(["🛑 exit(1)"])
