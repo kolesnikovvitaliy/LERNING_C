@@ -20,7 +20,7 @@
 
 ```mermaid
 graph TD
-    Start([🚀 Запуск программы]) --> CheckCount{"Проверка: argc < 3?"}"
+    Start([🚀 Запуск программы]) --> CheckCount{"Проверка: argc < 3?"}
 
     %% Ветка проверки количества
     CheckCount -- Да (Недостаточно) --> LogErr1[/"Вызов LOG_ERROR:<br>'Invalid number of arguments...'"/]
