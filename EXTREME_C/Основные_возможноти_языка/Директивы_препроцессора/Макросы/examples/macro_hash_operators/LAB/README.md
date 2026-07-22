@@ -195,3 +195,6 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+---
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора/Макросы/examples/macro_hash_operators)
+---
