@@ -17,6 +17,9 @@
 
 int main(int argc, char **argv) {
 
+ (void)argc;
+ (void)argv;
+
  LOOP(co py paste cut)
  LOOP(copy, paste, cut)
  LOOP(copy, paste, cut, select)
