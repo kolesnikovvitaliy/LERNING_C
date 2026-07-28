@@ -48,8 +48,8 @@ LIB_DIR = lib
 INC_DIR = include
 
 # Имя и путь к статической библиотеке
-LIB_NAME = my_logger
-STATIC_LIB = $(LIB_DIR)/lib_$(LIB_NAME).a
+LIB_NAME = _my_logger
+STATIC_LIB = $(LIB_DIR)/lib$(LIB_NAME).a
 
 # Цвета для консоли (работают в Linux и современных терминалах Windows)
 GREEN = \033[0;32m
@@ -73,7 +73,7 @@ LIB_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(LIB_SRCS))
 .PHONY: all preprocess build run clean help
 
 # Цель по умолчанию (цель test раскомментирована в списке, чтобы all работал без ошибок)
-all: preprocess build run
+all: preprocess build clean run
 
 # 1. Компиляция файлов библиотеки в .o с сохранением структуры папок
 # Зависит как от .c файла, так и от всех заголовочных файлов .h
@@ -89,10 +89,10 @@ $(STATIC_LIB): $(LIB_OBJS)
 	@printf "$(GREEN)Библиотека успешно создана!$(RESET)\n"
 
 # 3. Сборка финального файла: main.c + линковка с созданной .a библиотекой
-# Программа пересоберется, если изменился main.c, библиотека или заголовки
 build: $(MAIN_SRC) $(STATIC_LIB) $(LIB_HDRS)
 	@printf  "\n$(YELLOW)Компиляция проекта с линковкой .a...$(RESET)\n"
 	$(CC) $(CFLAGS) $(MAIN_SRC) -L$(LIB_DIR) -l$(LIB_NAME) -o $(TARGET)
+# 	$(CC) $(CFLAGS) $(MAIN_SRC) $(STATIC_LIB) -o $(TARGET)
 	@printf  "$(GREEN)Проект успешно собран в файл: $(TARGET)$(RESET)\n"
 
 # Запуск программы (работает кроссплатформенно через ./ префикс)
@@ -111,11 +111,9 @@ preprocess: $(MAIN_SRC) $(LIB_HDRS)
 clean:
 	@printf  "$(YELLOW)Очистка артефактов сборки...$(RESET)\n"
 	$(RMDIR) $(OBJ_DIR)
-	$(RMDIR) $(LIB_DIR)
-	$(RM) $(TARGET)
+# 	$(RMDIR) $(LIB_DIR)
+# 	$(RM) $(TARGET)
 	$(RM) $(PREPROCESSED)
-	$(RM) output.txt
-	$(RM) expected.txt
 	@printf  "$(GREEN)Очистка завершена.$(RESET)\n"
 
 # Справка
