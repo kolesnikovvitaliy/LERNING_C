@@ -74,7 +74,9 @@ log_message(log_level_t level, const char *fmt, ...)
         if (level == 1) {
             printf("%s", level_colors[level]);
         } else {
-            printf("\n%s[%s]: ", level_colors[level], levels[level]);
+            // printf("\n%s[%s]: ", level_colors[level], levels[level]);
+            printf("%s[%s]\t[%s] [%s:%d] %s(): ", level_colors[level],
+                    levels[level], time_str, file, line, func);
         }
     }
 
