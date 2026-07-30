@@ -8,12 +8,12 @@ ifeq ($(OS),Windows_NT)
         FIX_PATH = $(subst /,\,$1)
         RM = del /Q /F
         RMDIR = rmdir /S /Q
-        MKDIR = mkdir
+        MKDIR = powershell -Command "New-Item -ItemType Directory -Force -Path '$(1)'" >nul
     else ifeq ($(SHELL),cmd.exe)
         FIX_PATH = $(subst /,\,$1)
         RM = del /Q /F
         RMDIR = rmdir /S /Q
-        MKDIR = mkdir
+        MKDIR = powershell -Command "New-Item -ItemType Directory -Force -Path '$(1)'" >nul
     else
         # Окружение со shell-эмуляцией (Cygwin, MSYS2, Git Bash)
         FIX_PATH = $1
@@ -61,14 +61,18 @@ RED   = \033[0;31m
 # Рекурсивный поиск файлов (функция rwildcard)
 rwildcard = $(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
+# 1. Находим вообще ВСЕ файлы .c в текущем каталоге и подкаталогах
+ALL_C_FILES := $(call rwildcard,.,*.c)
+
+
 # Рекурсивный поиск всех исходников (.c) в папке src/
-LIB_SRCS = $(call rwildcard,$(SRC_DIR),*.c)
+LIB_SRCS = $(filter-out $(OBJ_DIR)/%, $(ALL_C_FILES))
 
 # Рекурсивный поиск ВСЕХ заголовочных файлов (.h) в папке include/
 LIB_HDRS = $(call rwildcard,$(INC_DIR),*.h)
 
 # Автоматическое формирование путей для .o файлов в папке OBJ_DIR
-LIB_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(LIB_SRCS))
+LIB_OBJS = $(patsubst ./%, $(OBJ_DIR)/%, $(LIB_FILES:.c=.o))
 
 .PHONY: all preprocess build run clean help
 
