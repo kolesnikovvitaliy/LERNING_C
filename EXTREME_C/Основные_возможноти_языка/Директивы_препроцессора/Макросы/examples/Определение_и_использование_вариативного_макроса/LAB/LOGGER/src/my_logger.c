@@ -11,7 +11,7 @@
  * @version 1.0
  */
 
-#include <my_logger.h>
+#include "my_logger.h"
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -22,7 +22,9 @@
  * @details Все сообщения с уровнем строго выше, чем @p current_log_level,
  * будут автоматически игнорироваться функцией log_message().
  */
-log_level_t current_log_level = DEBUG;
+
+log_level_t current_log_level = LOGGER_STATUS;
+
 
 /**
  * @brief Выводит форматированное сообщение в консоль с учетом уровня
@@ -42,49 +44,48 @@ log_level_t current_log_level = DEBUG;
  * @warning Функция не является потокобезопасной (thread-safe), так как
  * использует `static` или глобальные вызовы `printf`.
  */
-void
-log_message(log_level_t level, const char *fmt, ...)
-{
-    /** Текстовые представления доступных уровней логирования. */
-    const char *levels[] = { "NONE",    "PRINT_RESULT", "ERROR", "INFO",
-                             "WARNING", "TRACE",        "DEBUG" };
+// void log_message(log_level_t level, const char *fmt, ...) {
+void log_message(log_level_t level, const char* file, int line, const char* func, const char* fmt, ...) {
+  /** Текстовые представления доступных уровней логирования. */
+  const char *levels[] = {"NONE", "PRINT_RESULT", "ERROR",    "INFO",
+                          "WARNING", "TRACE", "DEBUG_LOG"};
 
-    /** ANSI цветовые коды для визуального разделения уровней в консоли. */
-    const char *level_colors[]
-        = { CLR_NONE,    CLR_PRINT_RESULT, CLR_ERROR, CLR_INFO,
-            CLR_WARNING, CLR_TRACE,        CLR_DEBUG };
+  /** ANSI цветовые коды для визуального разделения уровней в консоли. */
+  const char *level_colors[] = {CLR_NONE, CLR_PRINT_RESULT, CLR_ERROR,
+                                CLR_INFO, CLR_WARNING,      CLR_TRACE,
+                                CLR_DEBUG_LOG};
+  // Выбираем один поток для всей строки (например, stderr для логов, stdout для результатов)
+  FILE* stream = (level == 1) ? stdout : stderr;
 
-    // Если уровень сообщения выше текущего
-    // порога, игнорируем его
-    if (level > current_log_level) {
-        return;
-    }
-    // Получение текущего времени
-    time_t     now = time(NULL);
-    struct tm *t   = localtime(&now);
-    char       time_str[20];
-    strftime(time_str, sizeof(time_str), "%H:%M:%S", t);
-
-    // Печать префикса уровня
-    // printf("[%s] ", levels[level]);
-    // printf("%s[%s]\t[%s] [%s:%d] %s(): ", level_colors[level],
-    // levels[level],
-    //                time_str, file, line, func);
-    if (level != 0) {
-        if (level == 1) {
-            printf("%s", level_colors[level]);
-        } else {
-            printf("\n%s[%s]: ", level_colors[level], levels[level]);
-        }
-    }
-
-    // Обработка переменного числа аргументов
-    va_list args;
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
-    printf(CLR_RESET "");
+  // Если уровень сообщения выше текущего
+  // порога, игнорируем его
+  if (level > current_log_level) {
     return;
+  }
+  // Получение текущего времени
+  time_t now = time(NULL);
+  struct tm *t = localtime(&now);
+  char time_str[20];
+  strftime(time_str, sizeof(time_str), "%H:%M:%S", t);
+
+  if (level != 0) {
+    if (level == 1) {
+      fprintf(stream, "%s", level_colors[level]);
+    } else {
+      fprintf(stream, "%s[%s] [%s] [%s:%d] %s(): ", level_colors[level],
+               levels[level], time_str, file, line, func);
+      perror(NULL);
+
+    }
+  }
+
+  // Обработка переменного числа аргументов
+  va_list args;
+  va_start(args, fmt);
+  vfprintf(stream, fmt, args);
+  va_end(args);
+  printf(CLR_RESET "");
+  return;
 }
 
 /**
@@ -104,12 +105,10 @@ log_message(log_level_t level, const char *fmt, ...)
  * set_log_level(prev); // Возврат к старому режиму
  * @endcode
  */
-log_level_t
-set_log_level(log_level_t level)
-{
-    // Установка нового порогового и возврат
-    // предыдущего значения logger;
-    log_level_t old_level = current_log_level;
-    current_log_level     = level;
-    return old_level;
+log_level_t set_log_level(log_level_t level) {
+  // Установка нового порогового и возврат
+  // предыдущего значения logger;
+  log_level_t old_level = current_log_level;
+  current_log_level = level;
+  return old_level;
 }

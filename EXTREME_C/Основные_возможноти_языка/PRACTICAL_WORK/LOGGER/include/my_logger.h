@@ -23,7 +23,19 @@
  */
 
 #ifndef LOGGER_H
-#    define LOGGER_H
+#define LOGGER_H
+
+#ifdef DEBUG
+#define LOGGER_STATUS DEBUG_LOG
+#else
+#define LOGGER_STATUS NONE
+#endif
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <locale.h>
+#endif
 
 /**
  * @enum log_level_t
@@ -32,13 +44,13 @@
  * Используются для фильтрации выводимых сообщений и определения их цвета.
  */
 typedef enum {
-    NONE = 0, /**< Отсутствие логирования / Чистый вывод без префиксов. */
-    PRINT_RESULT, /**< Вывод результатов работы программы. */
-    ERROR, /**< Критические ошибки, сбои выполнения. */
-    INFO, /**< Информационные сообщения о штатной работе. */
-    WARNING, /**< Предупреждения о потенциальных проблемах. */
-    TRACE, /**< Подробная трассировка шагов алгоритма. */
-    DEBUG /**< Отладочная информация для разработчиков. */
+  NONE = 0, /**< Отсутствие логирования / Чистый вывод без префиксов. */
+  PRINT_RESULT, /**< Вывод результатов работы программы. */
+  ERROR, /**< Критические ошибки, сбои выполнения. */
+  INFO, /**< Информационные сообщения о штатной работе. */
+  WARNING, /**< Предупреждения о потенциальных проблемах. */
+  TRACE, /**< Подробная трассировка шагов алгоритма. */
+  DEBUG_LOG /**< Отладочная информация для разработчиков. */
 } log_level_t;
 
 /**
@@ -46,20 +58,17 @@ typedef enum {
  * @brief Управляющие последовательности для окрашивания текста в консоли.
  * @{
  */
-#    define CLR_NONE "\x1b[37m" /**< Белый цвет текста */
-#    define CLR_PRINT_RESULT                                                  \
-        "\x1b[37m" /**< Белый цвет текста для результатов */
-#    define CLR_ERROR "\x1b[31m" /**< Красный цвет текста для ошибок */
-#    define CLR_INFO  "\x1b[32m" /**< Зеленый цвет текста для информации */
-#    define CLR_WARNING                                                       \
-        "\x1b[33m" /**< Желтый цвет текста для предупреждений */
-#    define CLR_TRACE                                                         \
-        "\x1b[94m" /**< Светло-синий цвет текста для трассировки */
-#    define CLR_DEBUG                                                                         \
-        "\x1b[36m" /**< Циан (голубой) цвет текста для отладки \
-                    */
-#    define CLR_RESET                                                         \
-        "\x1b[0m" /**< Сброс цвета к системному значению по умолчанию */
+#define CLR_NONE "\x1b[37m" /**< Белый цвет текста */
+#define CLR_PRINT_RESULT "\x1b[37m" /**< Белый цвет текста для результатов */
+#define CLR_ERROR "\x1b[31m" /**< Красный цвет текста для ошибок */
+#define CLR_INFO "\x1b[32m" /**< Зеленый цвет текста для информации */
+#define CLR_WARNING "\x1b[33m" /**< Желтый цвет текста для предупреждений */
+#define CLR_TRACE "\x1b[94m" /**< Светло-синий цвет текста для трассировки */
+#define CLR_DEBUG_LOG                                                                      \
+  "\x1b[36m" /**< Циан (голубой) цвет текста для отладки \
+              */
+#define CLR_RESET                                                              \
+  "\x1b[0m" /**< Сброс цвета к системному значению по умолчанию */
 /** @} */
 
 /**
@@ -74,7 +83,8 @@ typedef enum {
  *
  * @warning Строка формата `fmt` не должна быть `NULL`.
  */
-void log_message(log_level_t level, const char *fmt, ...);
+// void log_message(log_level_t level, const char *fmt, ...);
+void log_message(log_level_t level, const char* file, int line, const char* func, const char* fmt, ...);
 
 /**
  * @brief Установка текущего глобального уровня фильтрации логов.
@@ -98,44 +108,43 @@ log_level_t set_log_level(log_level_t new_level);
  * @def NONE(fmt, ...)
  * @brief Вывод сообщения без явного указания уровня (обычный белый текст).
  */
-#    define NONE(fmt, ...) log_message(NONE, fmt, ##__VA_ARGS__)
+#define NONE(fmt, ...) log_message(NONE,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def PRINT_RESULT(fmt, ...)
  * @brief Вывод итогового результата выполнения.
  */
-#    define PRINT_RESULT(fmt, ...)                                            \
-        log_message(PRINT_RESULT, fmt, ##__VA_ARGS__)
+#define PRINT_RESULT(fmt, ...) log_message(PRINT_RESULT,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def ERROR(fmt, ...)
  * @brief Вывод сообщения об ошибке (окрашивается в @b красный цвет).
  */
-#    define ERROR(fmt, ...) log_message(ERROR, fmt, ##__VA_ARGS__)
+#define ERROR(fmt, ...) log_message(ERROR,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def INFO(fmt, ...)
  * @brief Вывод информационного сообщения (окрашивается в @b зеленый цвет).
  */
-#    define INFO(fmt, ...) log_message(INFO, fmt, ##__VA_ARGS__)
+#define INFO(fmt, ...) log_message(INFO,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def WARNING(fmt, ...)
  * @brief Вывод предупреждения (окрашивается в @b желтый цвет).
  */
-#    define WARNING(fmt, ...) log_message(WARNING, fmt, ##__VA_ARGS__)
+#define WARNING(fmt, ...) log_message(WARNING,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def TRACE(fmt, ...)
  * @brief Вывод лога трассировки (окрашивается в @b светло-синий цвет).
  */
-#    define TRACE(fmt, ...) log_message(TRACE, fmt, ##__VA_ARGS__)
+#define TRACE(fmt, ...) log_message(TRACE, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
- * @def DEBUG(fmt, ...)
+ * @def DEBUG_LOG(fmt, ...)
  * @brief Вывод отладочного сообщения (окрашивается в @b циан/голубой цвет).
  */
-#    define DEBUG(fmt, ...) log_message(DEBUG, fmt, ##__VA_ARGS__)
+#define DEBUG_LOG(fmt, ...) log_message(DEBUG_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /** @} */
 

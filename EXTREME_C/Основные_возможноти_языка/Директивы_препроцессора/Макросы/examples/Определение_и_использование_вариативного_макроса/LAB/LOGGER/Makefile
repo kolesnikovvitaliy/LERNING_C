@@ -32,7 +32,7 @@ endif
 
 # Переменные компилятора и флагов
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -O2 -Iinclude
+CFLAGS = -Wall -Wextra -Wall -Werror -std=c99 -O2 -Iinclude -DDEBUG
 TARGET = my_logger$(TARGET_EXT)
 MAIN_SRC = main.c
 PREPROCESSED = main.i
@@ -72,18 +72,24 @@ LIB_SRCS = $(filter-out $(OBJ_DIR)/%, $(ALL_C_FILES))
 LIB_HDRS = $(call rwildcard,$(INC_DIR),*.h)
 
 # Автоматическое формирование путей для .o файлов в папке OBJ_DIR
-LIB_OBJS = $(patsubst ./%, $(OBJ_DIR)/%, $(LIB_FILES:.c=.o))
+LIB_OBJS = $(patsubst ./%, $(OBJ_DIR)/%, $(LIB_SRCS:.c=.o))
 
 .PHONY: all preprocess build run clean help
 
 # Цель по умолчанию (цель test раскомментирована в списке, чтобы all работал без ошибок)
-all: preprocess build clean run
+all: preprocess build run
 
 # 1. Компиляция файлов библиотеки в .o с сохранением структуры папок
 # Зависит как от .c файла, так и от всех заголовочных файлов .h
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_HDRS)
+$(LIB_OBJS): $(OBJ_DIR)/%.o: %.c $(LIB_HDRS)
 	@$(MKDIR) $(call FIX_PATH,$(dir $@))
+	@printf "$(YELLOW)Создание объектных файлов $@...$(RESET)\n"
 	$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(GREEN)Объектные файлы успешно созданы!$(RESET)\n"
+
+# $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_HDRS)
+# 	@$(MKDIR) $(call FIX_PATH,$(dir $@))
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 # 2. Упаковка всех .o файлов в статическую библиотеку .a
 $(STATIC_LIB): $(LIB_OBJS)
@@ -93,9 +99,10 @@ $(STATIC_LIB): $(LIB_OBJS)
 	@printf "$(GREEN)Библиотека успешно создана!$(RESET)\n"
 
 # 3. Сборка финального файла: main.c + линковка с созданной .a библиотекой
-build: $(MAIN_SRC) $(STATIC_LIB) $(LIB_HDRS)
+build: $(MAIN_SRC) $(STATIC_LIB) $(LIB_HDRS) pre_clean
 	@printf  "\n$(YELLOW)Компиляция проекта с линковкой .a...$(RESET)\n"
-	$(CC) $(CFLAGS) $(MAIN_SRC) -L$(LIB_DIR) -l$(LIB_NAME) -o $(TARGET)
+	$(CC) $(CFLAGS) $(MAIN_SRC) -o $(TARGET) -L$(LIB_DIR) -l$(LIB_NAME)
+# 	$(CC) $(CFLAGS) $(MAIN_SRC) -L$(LIB_DIR) -l$(LIB_NAME) -o $(TARGET)
 # 	$(CC) $(CFLAGS) $(MAIN_SRC) $(STATIC_LIB) -o $(TARGET)
 	@printf  "$(GREEN)Проект успешно собран в файл: $(TARGET)$(RESET)\n"
 
@@ -112,11 +119,18 @@ preprocess: $(MAIN_SRC) $(LIB_HDRS)
 	@printf  "$(GREEN)Готово! Результат записан в $(PREPROCESSED)$(RESET)\n"
 
 # Очистка
+pre_clean:
+	@printf  "$(YELLOW)Очистка артефактов сборки...$(RESET)\n"
+	$(RMDIR) $(OBJ_DIR)
+	$(RM) $(TARGET)
+	$(RM) $(PREPROCESSED)
+	@printf  "$(GREEN)Очистка завершена.$(RESET)\n"
+# Очистка
 clean:
 	@printf  "$(YELLOW)Очистка артефактов сборки...$(RESET)\n"
 	$(RMDIR) $(OBJ_DIR)
-# 	$(RMDIR) $(LIB_DIR)
-# 	$(RM) $(TARGET)
+	$(RMDIR) $(LIB_DIR)
+	$(RM) $(TARGET)
 	$(RM) $(PREPROCESSED)
 	@printf  "$(GREEN)Очистка завершена.$(RESET)\n"
 

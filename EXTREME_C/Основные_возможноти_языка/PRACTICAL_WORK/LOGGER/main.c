@@ -1,26 +1,31 @@
 #include <my_logger.h>
 
 #include <assert.h>
-#ifdef _WIN32
-#    include <windows.h>
-#else
-#    include <locale.h>
-#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+int main(int argc, char **argv) {
+  (void)argc;
+  (void)argv;
 
-int
-main(int argc, char **argv)
-{
-    (void)argc;
-    (void)argv;
 #ifdef _WIN32
-    SetConsoleOutputCP(65001); // Для Windows
+  SetConsoleOutputCP(65001); // Для Windows
 #else
-    setlocale(LC_ALL, "Russian");
+  setlocale(LC_ALL, "Russian");
 #endif
-    DEBUG("SYSTEM LOGGINGS ACTIVATED :) !!! \n\n", "");
-    return 0;
+#ifdef DEBUG
+  DEBUG_LOG("SYSTEM LOGGINGS ACTIVATED :) !!! \n\n", "");
+#endif
+  PRINT_RESULT("PRINT_RESULT          Основная работа программы. :) !!! \n\n",
+               "");
+  NONE("NONE          Основная работа программы. !!! \n\n", "");
+  ERROR("Основная работа программы. !!! \n\n", "");
+  INFO("Основная работа программы. !!! \n\n", "");
+  WARNING("Основная работа программы. !!! \n\n", "");
+  TRACE("Основная работа программы. !!! \n\n", "");
+  printf("printf          Основная работа программы. !!! \n\n");
+
+  return 0;
 }
