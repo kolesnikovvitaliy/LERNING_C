@@ -11,7 +11,7 @@
  * @version 1.0
  */
 
-#include "my_logger.h"
+#include <my_logger.h>
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -47,12 +47,12 @@ log_level_t current_log_level = LOGGER_STATUS;
 // void log_message(log_level_t level, const char *fmt, ...) {
 void log_message(log_level_t level, const char* file, int line, const char* func, const char* fmt, ...) {
   /** Текстовые представления доступных уровней логирования. */
-  const char *levels[] = {"NONE", "PRINT_RESULT", "ERROR",    "INFO",
-                          "WARNING", "TRACE", "DEBUG_LOG"};
+  const char *levels[] = {"NONE_LOG", "PRINT_RESULT", "ERROR_LOG",    "INFO_LOG",
+                          "WARNING_LOG", "TRACE_LOG", "DEBUG_LOG"};
 
   /** ANSI цветовые коды для визуального разделения уровней в консоли. */
-  const char *level_colors[] = {CLR_NONE, CLR_PRINT_RESULT, CLR_ERROR,
-                                CLR_INFO, CLR_WARNING,      CLR_TRACE,
+  const char *level_colors[] = {CLR_NONE_LOG, CLR_PRINT_RESULT, CLR_ERROR_LOG,
+                                CLR_INFO_LOG, CLR_WARNING_LOG,      CLR_TRACE_LOG,
                                 CLR_DEBUG_LOG};
   // Выбираем один поток для всей строки (например, stderr для логов, stdout для результатов)
   FILE* stream = (level == 1) ? stdout : stderr;

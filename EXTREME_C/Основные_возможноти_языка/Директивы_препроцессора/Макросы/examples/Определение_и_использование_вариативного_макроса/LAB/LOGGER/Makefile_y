@@ -1,0 +1,107 @@
+# 1. Operating System Detection & Tool Mapping
+ifeq ($(OS),Windows_NT)
+    TARGET_EXT = .exe
+    ifeq ($(shell uname 2>nul),)
+        # Чистый Windows (cmd.exe)
+        FIX_PATH = $(subst /,\,$1)
+        RM = del /Q /F 2>nul || (exit 0)
+        RMDIR = rmdir /S /Q 2>nul || (exit 0)
+        # Простой и надежный mkdir для Windows cmd.exe через обратные слэши
+        MKDIR = cmd /c "mkdir"
+        PRINTF = @echo
+        RUN_CMD = $(TARGET)
+    else
+        # Shell-emulation (Git Bash, MSYS2)
+        FIX_PATH = $1
+        RM = rm -f
+        RMDIR = rm -rf
+        MKDIR = mkdir -p
+        PRINTF = printf
+        RUN_CMD = ./$(TARGET)
+    endif
+else
+    # Linux / macOS
+    FIX_PATH = $1
+    RM = rm -f
+    RMDIR = rm -rf
+    MKDIR = mkdir -p
+    PRINTF = printf
+    RUN_CMD = ./$(TARGET)
+endif
+# Compiler and Flags Configuration
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99 -O2 -Iinclude -DDEBUG
+
+TARGET = my_logger$(TARGET_EXT)
+MAIN_SRC = main.c
+PREPROCESSED = main.i
+
+# Static Library Archiver Configuration
+AR = ar
+ARFLAGS = rcs
+
+# Project Directory Structure
+SRC_DIR = src
+OBJ_DIR = obj
+LIB_DIR = lib
+INC_DIR = include
+
+# Static Library Naming
+LIB_NAME = _my_logger
+STATIC_LIB = $(LIB_DIR)/lib$(LIB_NAME).a
+
+# Recursive Wildcard Function
+rwildcard = $(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
+# Source and Header File Discovery
+LIB_SRCS := $(call rwildcard,$(SRC_DIR),*.c)
+LIB_HDRS := $(call rwildcard,$(INC_DIR),*.h)
+
+# Object Files Mapping (Strictly transforms src/foo.c -> obj/src/foo.o)
+# Сюда больше никогда не попадет main.o, так как main.c лежит вне папки src
+LIB_OBJS := $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/$(SRC_DIR)/%, $(LIB_SRCS:.c=.o))
+
+.PHONY: all preprocess build run clean help
+
+# Default Target Configuration
+all: preprocess build run
+
+# 1. Compile Library Source Files into Object Files
+$(OBJ_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c $(LIB_HDRS)
+	@$(MKDIR) $(subst /,\,$(dir $@)) 2>nul || (exit 0)
+	@$(PRINTF) [INFO] Compiling object file: $@
+	$(CC) $(CFLAGS) -c $(call FIX_PATH,$<) -o $(call FIX_PATH,$@)
+
+# 2. Package Object Files into a Static Library (.a)
+$(STATIC_LIB): $(LIB_OBJS)
+	@$(MKDIR) $(call FIX_PATH,$(LIB_DIR))
+	@$(PRINTF) [INFO] Creating static library $@...
+	$(AR) $(ARFLAGS) $(call FIX_PATH,$@) $(foreach f,$(LIB_OBJS),$(call FIX_PATH,$f))
+	@$(PRINTF) [SUCCESS] Library created successfully!
+
+# 3. Build Final Executable (main.c + linked static library)
+build: $(MAIN_SRC) $(STATIC_LIB) $(LIB_HDRS)
+	@$(PRINTF) [INFO] Compiling project and linking static library...
+	$(CC) $(CFLAGS) $(MAIN_SRC) -o $(TARGET) -L$(LIB_DIR) -l$(LIB_NAME)
+	@$(PRINTF) [SUCCESS] Project successfully compiled into: $(TARGET)
+
+# Execute Output Application
+run: build
+	@$(PRINTF) [RUN] Launching application...
+	@$(PRINTF) ###################################
+	@$(RUN_CMD)
+
+# Code Preprocessing Stage
+preprocess: $(MAIN_SRC) $(LIB_HDRS)
+	@$(PRINTF) [INFO] Generating preprocessed file...
+	$(CC) $(CFLAGS) -E $(MAIN_SRC) -o $(PREPROCESSED)
+	@$(PRINTF) [SUCCESS] Done! Preprocessing result saved to $(PREPROCESSED)
+
+# Cleanup Build Artifacts
+clean:
+	@$(PRINTF) [INFO] Cleaning up build artifacts...
+	@$(RMDIR) $(OBJ_DIR)
+	@$(RMDIR) $(LIB_DIR)
+	@$(RM) $(TARGET)
+	@$(RM) $(PREPROCESSED)
+	@$(PRINTF) [SUCCESS] Cleanup completed.

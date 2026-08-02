@@ -32,7 +32,7 @@ endif
 
 # Переменные компилятора и флагов
 CC = gcc
-CFLAGS = -Wall -Wextra -Wall -Werror -std=c99 -O2 -Iinclude -DDEBUG
+CFLAGS = -Wall -Wextra -Wall -Werror -std=c99 -O2 -Iinclude
 TARGET = my_logger$(TARGET_EXT)
 MAIN_SRC = main.c
 PREPROCESSED = main.i
@@ -110,7 +110,7 @@ build: $(MAIN_SRC) $(STATIC_LIB) $(LIB_HDRS) pre_clean
 run: build
 	@printf  "\n$(YELLOW)Запуск программы...$(RESET)\n"
 	@printf  "$(BLUE)###################################$(RESET)\n"
-	./$(TARGET)
+	./$(TARGET) -d
 
 # Препроцессинг (зависит от заголовков, так как макросы могут измениться)
 preprocess: $(MAIN_SRC) $(LIB_HDRS)
