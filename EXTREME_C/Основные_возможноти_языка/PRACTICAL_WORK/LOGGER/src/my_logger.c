@@ -66,14 +66,17 @@ void log_message(log_level_t level, const char* file, int line, const char* func
   time_t now = time(NULL);
   struct tm *t = localtime(&now);
   char time_str[20];
+  char date_str[20];
   strftime(time_str, sizeof(time_str), "%H:%M:%S", t);
+  strftime(date_str, sizeof(date_str), "%D", t);
+
 
   if (level != 0) {
     if (level == 1) {
       fprintf(stream, "%s", level_colors[level]);
     } else {
-      fprintf(stream, "%s[%s] [%s] [%s:%d] %s(): ", level_colors[level],
-               levels[level], time_str, file, line, func);
+      fprintf(stream, "%s[%s] [%s] [%s] [%s:%d] %s() --> ", level_colors[level],
+               levels[level], date_str, time_str, file, line, func);
       perror(NULL);
 
     }

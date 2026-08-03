@@ -11,7 +11,9 @@ int set_debug_mode(int argc, char **argv);
 //##################################################################################
 int main(int argc, char **argv) {
 
-  set_debug_mode(argc, argv);
+  // set_debug_mode(argc, argv);
+  (void)argc;
+  (void)argv;
 
 #ifdef _WIN32
   SetConsoleOutputCP(65001); // Для Windows
@@ -21,21 +23,24 @@ int main(int argc, char **argv) {
 #ifdef DEBUG
   DEBUG_LOG("SYSTEM LOGGINGS ACTIVATED :) !!! \n\n", "");
 #endif
-  PRINT_RESULT("PRINT_RESULT          Основная работа программы. :) !!! \n\n","");
+  PRINT_RESULT("PRINT_RESULT          Замена стандартной функции printf. :) !!! \n\n","");
   //
-  NONE_LOG("NONE_LOG          Основная работа программы. !!! \n\n", "");
+  NONE_LOG("NONE_LOG          Этот тест не отображается. !!! \n\n", "");
+  printf("В режиме NON_LOG информация на дисплее не отображается  . !!! \n\n");
   //
   ERROR_LOG("Основная работа программы. !!! \n\n", "");
   INFO_LOG("Основная работа программы. !!! \n\n", "");
   WARNING_LOG("Основная работа программы. !!! \n\n", "");
   TRACE_LOG("Основная работа программы. !!! \n\n", "");
   //
-  printf("printf          Основная работа программы. !!! \n\n");
 
   return 0;
 }
 //##################################################################################
 
+//----------------------------------------------------------------
+// Расширение включения системы логирования при запуске программы с флагом '-d'
+// в данной реализации не требуется
 //----------------------------------------------------------------
 int set_debug_mode(int argc, char **argv)
 {
