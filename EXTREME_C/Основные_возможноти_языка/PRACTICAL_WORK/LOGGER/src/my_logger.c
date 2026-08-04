@@ -25,7 +25,6 @@
 
 log_level_t current_log_level = LOGGER_STATUS;
 
-
 /**
  * @brief Выводит форматированное сообщение в консоль с учетом уровня
  * логирования.
@@ -45,17 +44,20 @@ log_level_t current_log_level = LOGGER_STATUS;
  * использует `static` или глобальные вызовы `printf`.
  */
 // void log_message(log_level_t level, const char *fmt, ...) {
-void log_message(log_level_t level, const char* file, int line, const char* func, const char* fmt, ...) {
+void log_message(log_level_t level, const char *file, int line,
+                 const char *func, const char *fmt, ...) {
   /** Текстовые представления доступных уровней логирования. */
-  const char *levels[] = {"NONE_LOG", "PRINT_RESULT", "ERROR_LOG",    "INFO_LOG",
-                          "WARNING_LOG", "TRACE_LOG", "DEBUG_LOG"};
+  const char *levels[] = {"NONE_LOG", "PRINT_RESULT", "ERROR_LOG",
+                          "INFO_LOG", "WARNING_LOG",  "TRACE_LOG",
+                          "DEBUG_LOG"};
 
   /** ANSI цветовые коды для визуального разделения уровней в консоли. */
   const char *level_colors[] = {CLR_NONE_LOG, CLR_PRINT_RESULT, CLR_ERROR_LOG,
-                                CLR_INFO_LOG, CLR_WARNING_LOG,      CLR_TRACE_LOG,
+                                CLR_INFO_LOG, CLR_WARNING_LOG,  CLR_TRACE_LOG,
                                 CLR_DEBUG_LOG};
-  // Выбираем один поток для всей строки (например, stderr для логов, stdout для результатов)
-  FILE* stream = (level == 1) ? stdout : stderr;
+  // Выбираем один поток для всей строки (например, stderr для логов, stdout для
+  // результатов)
+  FILE *stream = (level == 1) ? stdout : stderr;
 
   // Если уровень сообщения выше текущего
   // порога, игнорируем его
@@ -70,15 +72,13 @@ void log_message(log_level_t level, const char* file, int line, const char* func
   strftime(time_str, sizeof(time_str), "%H:%M:%S", t);
   strftime(date_str, sizeof(date_str), "%D", t);
 
-
   if (level != 0) {
     if (level == 1) {
       fprintf(stream, "%s", level_colors[level]);
     } else {
       fprintf(stream, "%s[%s] [%s] [%s] [%s:%d] %s() --> ", level_colors[level],
-               levels[level], date_str, time_str, file, line, func);
+              levels[level], date_str, time_str, file, line, func);
       perror(NULL);
-
     }
   }
 

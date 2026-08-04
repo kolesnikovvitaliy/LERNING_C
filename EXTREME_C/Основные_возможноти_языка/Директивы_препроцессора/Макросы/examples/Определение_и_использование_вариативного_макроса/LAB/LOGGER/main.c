@@ -23,7 +23,9 @@ int main(int argc, char **argv) {
 #ifdef DEBUG
   DEBUG_LOG("SYSTEM LOGGINGS ACTIVATED :) !!! \n\n", "");
 #endif
-  PRINT_RESULT("PRINT_RESULT          Замена стандартной функции printf. :) !!! \n\n","");
+  PRINT_RESULT(
+      "PRINT_RESULT          Замена стандартной функции printf. :) !!! \n\n",
+      "");
   //
   NONE_LOG("NONE_LOG          Этот тест не отображается. !!! \n\n", "");
   printf("В режиме NON_LOG информация на дисплее не отображается  . !!! \n\n");
@@ -42,18 +44,17 @@ int main(int argc, char **argv) {
 // Расширение включения системы логирования при запуске программы с флагом '-d'
 // в данной реализации не требуется
 //----------------------------------------------------------------
-int set_debug_mode(int argc, char **argv)
-{
+int set_debug_mode(int argc, char **argv) {
   if (argv == NULL || argc < 1) {
-        return 0;
-    }
-    for (int i = 0; i < argc; i++) {
-        if (strcmp("-d", argv[i]) == 0) {
-          log_level_t log_level = set_log_level(DEBUG_LOG);
-          (void)log_level;
-            return 0;
-        }
-    }
     return 0;
+  }
+  for (int i = 0; i < argc; i++) {
+    if (strcmp("-d", argv[i]) == 0) {
+      log_level_t log_level = set_log_level(DEBUG_LOG);
+      (void)log_level;
+      return 0;
+    }
+  }
+  return 0;
 }
 //----------------------------------------------------------------

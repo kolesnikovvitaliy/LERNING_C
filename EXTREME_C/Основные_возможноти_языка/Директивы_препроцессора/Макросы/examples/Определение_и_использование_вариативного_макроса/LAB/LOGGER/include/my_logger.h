@@ -62,9 +62,11 @@ typedef enum {
 #define CLR_PRINT_RESULT "\x1b[37m" /**< Белый цвет текста для результатов */
 #define CLR_ERROR_LOG "\x1b[31m" /**< Красный цвет текста для ошибок */
 #define CLR_INFO_LOG "\x1b[32m" /**< Зеленый цвет текста для информации */
-#define CLR_WARNING_LOG "\x1b[33m" /**< Желтый цвет текста для предупреждений */
-#define CLR_TRACE_LOG "\x1b[94m" /**< Светло-синий цвет текста для трассировки */
-#define CLR_DEBUG_LOG                                                                      \
+#define CLR_WARNING_LOG "\x1b[33m" /**< Желтый цвет текста для предупреждений \
+                                    */
+#define CLR_TRACE_LOG                                                          \
+  "\x1b[94m" /**< Светло-синий цвет текста для трассировки */
+#define CLR_DEBUG_LOG                                                                   \
   "\x1b[36m" /**< Циан (голубой) цвет текста для отладки \
               */
 #define CLR_RESET                                                              \
@@ -84,7 +86,8 @@ typedef enum {
  * @warning Строка формата `fmt` не должна быть `NULL`.
  */
 // void log_message(log_level_t level, const char *fmt, ...);
-void log_message(log_level_t level, const char* file, int line, const char* func, const char* fmt, ...);
+void log_message(log_level_t level, const char *file, int line,
+                 const char *func, const char *fmt, ...);
 
 /**
  * @brief Установка текущего глобального уровня фильтрации логов.
@@ -108,44 +111,51 @@ log_level_t set_log_level(log_level_t new_level);
  * @def NONE(fmt, ...)
  * @brief Вывод сообщения без явного указания уровня (обычный белый текст).
  */
-// #define NONE_LOG(fmt, ...) log_message(NONE_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+// #define NONE_LOG(fmt, ...) log_message(NONE_LOG,  __FILE__, __LINE__,
+// __func__, fmt, ##__VA_ARGS__)
 #define NONE_LOG(...) ((void)0)
 
 /**
  * @def PRINT_RESULT(fmt, ...)
  * @brief Вывод итогового результата выполнения.
  */
-#define PRINT_RESULT(fmt, ...) log_message(PRINT_RESULT,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define PRINT_RESULT(fmt, ...)                                                 \
+  log_message(PRINT_RESULT, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def ERROR(fmt, ...)
  * @brief Вывод сообщения об ошибке (окрашивается в @b красный цвет).
  */
-#define ERROR_LOG(fmt, ...) log_message(ERROR_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define ERROR_LOG(fmt, ...)                                                    \
+  log_message(ERROR_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def INFO(fmt, ...)
  * @brief Вывод информационного сообщения (окрашивается в @b зеленый цвет).
  */
-#define INFO_LOG(fmt, ...) log_message(INFO_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define INFO_LOG(fmt, ...)                                                     \
+  log_message(INFO_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def WARNING(fmt, ...)
  * @brief Вывод предупреждения (окрашивается в @b желтый цвет).
  */
-#define WARNING_LOG(fmt, ...) log_message(WARNING_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define WARNING_LOG(fmt, ...)                                                  \
+  log_message(WARNING_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def TRACE(fmt, ...)
  * @brief Вывод лога трассировки (окрашивается в @b светло-синий цвет).
  */
-#define TRACE_LOG(fmt, ...) log_message(TRACE_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define TRACE_LOG(fmt, ...)                                                    \
+  log_message(TRACE_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /**
  * @def DEBUG_LOG(fmt, ...)
  * @brief Вывод отладочного сообщения (окрашивается в @b циан/голубой цвет).
  */
-#define DEBUG_LOG(fmt, ...) log_message(DEBUG_LOG,  __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
+#define DEBUG_LOG(fmt, ...)                                                    \
+  log_message(DEBUG_LOG, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
 
 /** @} */
 
