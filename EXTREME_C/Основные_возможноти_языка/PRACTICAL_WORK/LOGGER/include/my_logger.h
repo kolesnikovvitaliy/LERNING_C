@@ -109,7 +109,7 @@ log_level_t set_log_level(log_level_t new_level);
 
 /**
  * @def NONE(fmt, ...)
- * @brief Вывод сообщения без явного указания уровня (обычный белый текст).
+ * @brief Сообщения не выводятся
  */
 // #define NONE_LOG(fmt, ...) log_message(NONE_LOG,  __FILE__, __LINE__,
 // __func__, fmt, ##__VA_ARGS__)
@@ -117,7 +117,7 @@ log_level_t set_log_level(log_level_t new_level);
 
 /**
  * @def PRINT_RESULT(fmt, ...)
- * @brief Вывод итогового результата выполнения.
+ * @brief Вывод итогового результата выполнения белый текст.
  */
 #define PRINT_RESULT(fmt, ...)                                                 \
   log_message(PRINT_RESULT, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
