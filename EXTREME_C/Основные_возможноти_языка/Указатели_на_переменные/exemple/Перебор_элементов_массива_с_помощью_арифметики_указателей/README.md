@@ -54,7 +54,7 @@ graph TD
     Cond -.->|Нет| Inc["ptr++<br>(Сдвиг +4 байта)"]:::activePtr
 
     style Массив в стеке fill:#11141a,stroke:#2d3748,color:#fff
-    style Управление циклом for(;;)" fill:#1b1522,stroke:#4a1285,color:#fff
+    style Управление циклом for(";;")" fill:#1b1522,stroke:#4a1285,color:#fff
 ```
 
 ---
