@@ -143,7 +143,7 @@ char data_type = packet_ptr[len_step_ptr]; // Чтение типа данных
 
 Когда компилятор видит выражение `array_ptr[len_step_ptr]`, он автоматически трансформирует его по следующему математическому правилу:
 
-$$\text{Адрес Цели} = \texttt{array\_ptr} + (\texttt{len\_step\_ptr} \times \texttt{sizeof}(*\texttt{array\_ptr}))$$
+$$\text{Адрес Цели} = \texttt{array\\_ptr} + (\texttt{len\\_step\\_ptr} \times \texttt{sizeof}(*\texttt{array\\_ptr}))$$
 
 | Критерий | Подход с `len_step_ptr` (`ptr[step]`) | Устаревший подход (`ptr++`) |
 | :--- | :--- | :--- |
