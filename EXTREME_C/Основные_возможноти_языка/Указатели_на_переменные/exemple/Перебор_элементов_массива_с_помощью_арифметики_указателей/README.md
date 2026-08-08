@@ -27,7 +27,7 @@ graph TD
     classDef activePtr fill:#744210,stroke:#d69e2e,stroke-width:2px,color:#fff;
     classDef breakNode fill:#742a2a,stroke:#e53e3e,stroke-width:2px,color:#fff;
 
-    subgraph Массив в стеке [Каждая ячейка = 4 байта]
+    subgraph stackArray ["Массив в стеке (Каждая ячейка = 4 байта)"]
         A0["arr[0]<br>Значение: 9<br>Адрес: X"]:::base
         A1["arr[1]<br>Значение: 22<br>Адрес: X+4"]:::memCell
         A2["arr[2]<br>Значение: 30<br>Адрес: X+8"]:::memCell
@@ -35,7 +35,7 @@ graph TD
         A4["arr[4]<br>Значение: 18<br>Адрес: X+16"]:::breakNode
     end
 
-    subgraph Управление циклом for(;;)
+    subgraph loopControl ["Управление циклом for(;;)"]
         Ptr["Текущий ptr"]:::activePtr
         Cond{"ptr == &arr[4] ?"}:::activePtr
         Action["break;"]:::breakNode
@@ -53,9 +53,9 @@ graph TD
     Cond -->|Да| Action
     Cond -.->|Нет| Inc["ptr++<br>(Сдвиг +4 байта)"]:::activePtr
 
-    style Массив в стеке fill:#11141a,stroke:#2d3748,color:#fff
-    style Управление циклом for(";;")" fill:#1b1522,stroke:#4a1285,color:#fff
-```
+    %% Стилизация подграфов по латинским ID
+    style stackArray fill:#11141a,stroke:#2d3748,color:#fff
+    style loopControl fill:#1b1522,stroke:#4a1285,color:#fff
 
 ---
 
