@@ -28,16 +28,16 @@ graph TD
     classDef breakNode fill:#742a2a,stroke:#e53e3e,stroke-width:2px,color:#fff;
 
     subgraph stackArray ["Массив в стеке (Каждая ячейка = 4 байта)"]
-        A0["arr[0]<br>Значение: 9<br>Адрес: X"]:::base
-        A1["arr[1]<br>Значение: 22<br>Адрес: X+4"]:::memCell
-        A2["arr[2]<br>Значение: 30<br>Адрес: X+8"]:::memCell
-        A3["arr[3]<br>Значение: 23<br>Адрес: X+12"]:::memCell
-        A4["arr[4]<br>Значение: 18<br>Адрес: X+16"]:::breakNode
+        A0["arr<br>Значение: 9<br>Адрес: X"]:::base
+        A1["arr<br>Значение: 22<br>Адрес: X+4"]:::memCell
+        A2["arr<br>Значение: 30<br>Адрес: X+8"]:::memCell
+        A3["arr<br>Значение: 23<br>Адрес: X+12"]:::memCell
+        A4["arr<br>Значение: 18<br>Адрес: X+16"]:::breakNode
     end
 
     subgraph loopControl ["Управление циклом for(;;)"]
         Ptr["Текущий ptr"]:::activePtr
-        Cond{"ptr == &arr[4] ?"}:::activePtr
+        Cond{"ptr == &arr ?"}:::activePtr
         Action["break;"]:::breakNode
     end
 
@@ -56,6 +56,7 @@ graph TD
     %% Стилизация подграфов по латинским ID
     style stackArray fill:#11141a,stroke:#2d3748,color:#fff
     style loopControl fill:#1b1522,stroke:#4a1285,color:#fff
+```
 
 ---
 
