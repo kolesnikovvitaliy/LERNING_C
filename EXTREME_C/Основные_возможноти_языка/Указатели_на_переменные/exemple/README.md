@@ -34,7 +34,7 @@ graph TD
     classDef scenario fill:#4a1285,stroke:#9f7aea,stroke-width:1px,color:#fff;
 
     %% Раздел структуры памяти
-    subgraph Память Массива ["1. Физическое представление памяти"]
+    subgraph "Память Массива" ["1. Физическое представление памяти"]
         M0[" Элемент <br> Адрес: Base"]:::base
         M1[" Элемент <br> Адрес: Base + 1*Size"]:::memory
         M2[" Текущий Шаг <br> Адрес: Base + 2*Size"]:::active
@@ -42,7 +42,7 @@ graph TD
     end
 
     %% Раздел логики управления
-    subgraph Управление Смещением ["2. Механизм адресации"]
+    subgraph "Управление Смещением" ["2. Механизм адресации"]
         BasePtr["array_ptr <br> (НЕИЗМЕННЫЙ)"]:::base
         LenStep["len_step_ptr = 2 <br> (ПЕРЕМЕННЫЙ ШАГ)"]:::step
 
@@ -52,7 +52,7 @@ graph TD
     end
 
     %% Раздел вариантов использования
-    subgraph Примеры Применения ["3. Сценарии использования паттерна"]
+    subgraph "Примеры Применения" ["3. Сценарии использования паттерна"]
         S1["🛡️ Safe Iteration <br> Безопасный перебор данных"]:::scenario
         S2["🔄 Window Processing <br> Обработка 'скользящим окном'"]:::scenario
         S3["📁 File/Network Buffers <br> Чтение пакетов со смещением"]:::scenario
@@ -65,9 +65,9 @@ graph TD
     LenStep --> S3
     BasePtr --> S4
 
-    style Память Массива fill:#11141a,stroke:#2d3748,color:#fff
-    style Управление Смещением fill:#11141a,stroke:#2d3748,color:#fff
-    style Примеры Применения fill:#1b1522,stroke:#4a1285,color:#fff
+    style "Память Массива" fill:#11141a,stroke:#2d3748,color:#fff
+    style "Управление Смещением" fill:#11141a,stroke:#2d3748,color:#fff
+    style "Примеры Применения" fill:#1b1522,stroke:#4a1285,color:#fff
 ```
 
 ---
