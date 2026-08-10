@@ -25,6 +25,7 @@ classDef base fill:#1a365d,stroke:#2b6cb0,stroke-width:2px,color:#fff;
 classDef memCell fill:#2d3748,stroke:#4a5568,stroke-width:1px,color:#cbd5e0;
 classDef activeLoop fill:#744210,stroke:#d69e2e,stroke-width:2px,color:#fff;
 classDef outNode fill:#22543d,stroke:#48bb78,stroke-width:2px,color:#fff;
+classDef consoleNode fill:#000,stroke:#333,stroke-width:2px,color:#0f0,font-family:monospace;
 
 subgraph "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]"
     A0["arr[0]<br>Значение: 9<br>Смещение: +0 B"]:::base
@@ -36,24 +37,32 @@ end
 
 subgraph "Логика выполнения цикла for"
     Loop["Итератор i<br>(0 -> 1 -> 2 -> 3 -> 4)"]:::activeLoop
-    Print["printf(\"%d\n\", arr[i])"]:::outNode
+    Print["printf(\"%d<br>\", arr[i])"]:::outNode
+    Inc["Инкремент<br>i++"]:::activeLoop
 end
 
-%% Связи управления
-Loop -->|i = 0| A0
-Loop -->|i = 1| A1
-Loop -->|i = 2| A2
-Loop -->|i = 3| A3
-Loop -->|i = 4| A4
+subgraph "Вывод в консоль (Terminal)"
+    Terminal["9<br>22<br>30<br>23<br>18"]:::consoleNode
+end
 
-A0 -.-> Print
-A1 -.-> Print
-A2 -.-> Print
-A3 -.-> Print
-A4 -.-> Print
+%% Связи управления внутри цикла
+Loop --> Print
+Print --> Inc
+Inc -->|Следующая итерация| Loop
+
+%% Связи с массивом данных
+Loop -.->|i = 0| A0
+Loop -.->|i = 1| A1
+Loop -.->|i = 2| A2
+Loop -.->|i = 3| A3
+Loop -.->|i = 4| A4
+
+%% Поток вывода данных
+Print ==>|Поток stdout| Terminal
 
 style "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]" fill:#11141a,stroke:#2d3748,color:#fff
 style "Логика выполнения цикла for" fill:#1b1522,stroke:#4a1285,color:#fff
+style "Вывод в консоль (Terminal)" fill:#1a1a1a,stroke:#333,color:#fff
 ```
 
 ---
