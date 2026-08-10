@@ -28,11 +28,11 @@ classDef outNode fill:#22543d,stroke:#48bb78,stroke-width:2px,color:#fff;
 classDef consoleNode fill:#000,stroke:#333,stroke-width:2px,color:#0f0,font-family:monospace;
 
 subgraph "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]"
-    A0["arr[0]<br>Значение: 9<br>Смещение: +0 B"]:::base
-    A1["arr[1]<br>Значение: 22<br>Смещение: +4 B"]:::memCell
-    A2["arr[2]<br>Значение: 30<br>Смещение: +8 B"]:::memCell
-    A3["arr[3]<br>Значение: 23<br>Смещение: +12 B"]:::memCell
-    A4["arr[4]<br>Значение: 18<br>Смещение: +16 B"]:::memCell
+    A0["arr<br>Значение: 9<br>Смещение: +0 B"]:::base
+    A1["arr<br>Значение: 22<br>Смещение: +4 B"]:::memCell
+    A2["arr<br>Значение: 30<br>Смещение: +8 B"]:::memCell
+    A3["arr<br>Значение: 23<br>Смещение: +12 B"]:::memCell
+    A4["arr<br>Значение: 18<br>Смещение: +16 B"]:::memCell
 end
 
 subgraph "Логика выполнения цикла for"
@@ -63,6 +63,7 @@ Print ==>|Поток stdout| Terminal
 style "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]" fill:#11141a,stroke:#2d3748,color:#fff
 style "Логика выполнения цикла for" fill:#1b1522,stroke:#4a1285,color:#fff
 style "Вывод в консоль (Terminal)" fill:#1a1a1a,stroke:#333,color:#fff
+
 ```
 
 ---
