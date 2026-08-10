@@ -27,7 +27,7 @@ classDef activeLoop fill:#744210,stroke:#d69e2e,stroke-width:2px,color:#fff;
 classDef outNode fill:#22543d,stroke:#48bb78,stroke-width:2px,color:#fff;
 classDef consoleNode fill:#000,stroke:#333,stroke-width:2px,color:#0f0,font-family:monospace;
 
-subgraph "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]"
+subgraph StackArray [Массив arr в стеке Размер: SIZE = 5 20 байт]
     A0["arr<br>Значение: 9<br>Смещение: +0 B"]:::base
     A1["arr<br>Значение: 22<br>Смещение: +4 B"]:::memCell
     A2["arr<br>Значение: 30<br>Смещение: +8 B"]:::memCell
@@ -35,13 +35,13 @@ subgraph "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]"
     A4["arr<br>Значение: 18<br>Смещение: +16 B"]:::memCell
 end
 
-subgraph "Логика выполнения цикла for"
+subgraph ForLoopLogic [Логика выполнения цикла for]
     Loop["Итератор i<br>(0 -> 1 -> 2 -> 3 -> 4)"]:::activeLoop
     Print["printf(&quot;%d&lt;br&gt;&quot;, arr[i])"]:::outNode
     Inc["Инкремент<br>i++"]:::activeLoop
 end
 
-subgraph "Вывод в консоль (Terminal)"
+subgraph ConsoleTerminal [Вывод в консоль Terminal]
     Terminal["9<br>22<br>30<br>23<br>18"]:::consoleNode
 end
 
@@ -60,10 +60,9 @@ Loop -.->|i = 4| A4
 %% Поток вывода данных
 Print ==>|Поток stdout| Terminal
 
-style "Массив arr в стеке [Размер: SIZE = 5 (20 байт)]" fill:#11141a,stroke:#2d3748,color:#fff
-style "Логика выполнения цикла for" fill:#1b1522,stroke:#4a1285,color:#fff
-style "Вывод в консоль (Terminal)" fill:#1a1a1a,stroke:#333,color:#fff
-
+style StackArray fill:#11141a,stroke:#2d3748,color:#fff
+style ForLoopLogic fill:#1b1522,stroke:#4a1285,color:#fff
+style ConsoleTerminal fill:#1a1a1a,stroke:#333,color:#fff
 ```
 
 ---
