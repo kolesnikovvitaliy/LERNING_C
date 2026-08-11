@@ -42,12 +42,12 @@ graph TD
 ---
 
 ## 📌 Оглавление
-- [📊 Указатели_на_переменные](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные)
-- [📊 Синтаксис](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Синтаксис)
-- [💻 Размер_указателей](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Размер_указателей)
-- [⚙️ Обобщенные_указатели](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Обобщенные_указатели)
-- [🖥️ Арифметические_операции_указателями_на_переменные](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Арифметические_операции_указателями_на_переменные)
-- [🛠️ Висячие_указатели](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Висячие_указатели)
+- [📊 Указатели_на_переменные](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Указатели_на_переменные)
+- [📊 Синтаксис](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Синтаксис)
+- [💻 Размер_указателей](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Размер_указателей)
+- [⚙️ Обобщенные_указатели](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Обобщенные_указатели)
+- [🖥️ Арифметические_операции_указателями_на_переменные](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Арифметические_операции_указателями_на_переменные)
+- [🛠️ Висячие_указатели](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Висячие_указатели)
 
 ---
 
