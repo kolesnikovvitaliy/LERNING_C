@@ -134,7 +134,7 @@ graph TD
 
 ```bash
 # 1. Компиляция со строгими флагами проверки качества кода
-gcc -Wall -Wextra -std=c99 main.c -o pointer_demo
+gcc -Wall -Wextra -std=c99 temp_name.c -o pointer_demo
 
 # 2. Запуск программы
 ./pointer_demo
@@ -145,5 +145,5 @@ gcc -Wall -Wextra -std=c99 main.c -o pointer_demo
 
 
 ---
-[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора/Указатели_на_переменные/)
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/)
 ---
