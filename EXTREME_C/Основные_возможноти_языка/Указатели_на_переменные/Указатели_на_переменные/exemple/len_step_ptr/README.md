@@ -15,30 +15,30 @@ graph TD
     classDef ptrChar fill:#c05621,stroke:#dd6b20,stroke-width:2px,color:#fff;
     classDef highlight fill:#2f855a,stroke:#48bb78,stroke-width:2px,color:#fff;
 
-    subgraph Память (Байты)
-        B0[Байт 0 <br> Адрес: X]:::memory
-        B1[Байт 1 <br> Адрес: X+1]:::memory
-        B2[Байт 2 <br> Адрес: X+2]:::memory
-        B3[Байт 3 <br> Адрес: X+3]:::memory
-        B4[Байт 4 <br> Адрес: X+4]:::highlight
+    subgraph Memory ["Память (Байты)"]
+        B0["Байт 0 <br> Адрес: X"]:::memory
+        B1["Байт 1 <br> Адрес: X+1"]:::memory
+        B2["Байт 2 <br> Адрес: X+2"]:::memory
+        B3["Байт 3 <br> Адрес: X+3"]:::memory
+        B4["Байт 4 <br> Адрес: X+4"]:::highlight
     end
 
-    subgraph Начальное состояние
+    subgraph StartState ["Начальное состояние"]
         StartInt["int_ptr_var указывает на Адрес: X"]:::ptrInt
         StartChar["char_ptr_var указывает на Адрес: X"]:::ptrChar
         StartInt --> B0
         StartChar --> B0
     end
 
-    subgraph Состояние после инкремента (++)
+    subgraph AfterState ["Состояние после инкремента (++)"]
         AfterInt["int_ptr_var++ <br> (Шаг +4 байта)"]:::ptrInt
         AfterChar["char_ptr_var++ <br> (Шаг +1 байт)"]:::ptrChar
-
         AfterInt ==>|Указывает на| B4
         AfterChar ==>|Указывает на| B1
     end
 
-    style Память fill:#1a202c,stroke:#2d3748,color:#fff
+    style Memory fill:#1a202c,stroke:#2d3748,color:#fff
+
 ```
 
 ---
