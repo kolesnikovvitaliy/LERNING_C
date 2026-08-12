@@ -4,5 +4,6 @@
 
 
 ---
-[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора/Макросы/examples/)
+<!--[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Директивы_препроцессора/Макросы/examples/)-->
+<button onclick="window.history.back();">← Назад</button>
 ---
