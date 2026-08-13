@@ -28,41 +28,42 @@ classDef outNode fill:#22543d,stroke:#48bb78,stroke-width:2px,color:#fff;
 classDef consoleNode fill:#000,stroke:#333,stroke-width:2px,color:#0f0,font-family:monospace;
 
 subgraph StackArray [Массив arr в стеке Размер: SIZE = 5 20 байт]
-    A0["arr<br>Значение: 9<br>Смещение: +0 B"]:::base
-    A1["arr<br>Значение: 22<br>Смещение: +4 B"]:::memCell
-    A2["arr<br>Значение: 30<br>Смещение: +8 B"]:::memCell
-    A3["arr<br>Значение: 23<br>Смещение: +12 B"]:::memCell
-    A4["arr<br>Значение: 18<br>Смещение: +16 B"]:::memCell
-end
+ A0["arr<br>Значение: 9<br>Смещение: +0 B"]:::base
+ A1["arr<br>Значение: 22<br>Смещение: +4 B"]:::memCell
+ A2["arr<br>Значение: 30<br>Смещение: +8 B"]:::memCell
+ A3["arr<br>Значение: 23<br>Смещение: +12 B"]:::memCell
+ A4["arr<br>Значение: 18<br>Смещение: +16 B"]:::memCell
+ end
 
 subgraph ForLoopLogic [Логика выполнения цикла for]
-    Loop["Итератор i<br>(0 -> 1 -> 2 -> 3 -> 4)"]:::activeLoop
-    Print["printf(&quot;%d&lt;br&gt;&quot;, arr[i])"]:::outNode
-    Inc["Инкремент<br>i++"]:::activeLoop
-end
+ Loop["Итератор i<br>(0 -> 1 -> 2 -> 3 -> 4)"]:::activeLoop
+ Print["printf(&quot;%d&lt;br&gt;&quot;, arr[i])"]:::outNode
+ Inc["Инкремент<br>i++"]:::activeLoop
+ end
 
 subgraph ConsoleTerminal [Вывод в консоль Terminal]
-    Terminal["9<br>22<br>30<br>23<br>18"]:::consoleNode
-end
+ Terminal["9<br>22<br>30<br>23<br>18"]:::consoleNode
+ end
 
 %% Связи управления внутри цикла
-Loop --> Print
-Print --> Inc
-Inc -->|Следующая итерация| Loop
+ Loop --> Print
+ Print --> Inc
+ Inc -->|Следующая итерация| Loop
 
 %% Связи с массивом данных
-Loop -.->|i = 0| A0
-Loop -.->|i = 1| A1
-Loop -.->|i = 2| A2
-Loop -.->|i = 3| A3
-Loop -.->|i = 4| A4
+ Loop -.->|i = 0| A0
+ Loop -.->|i = 1| A1
+ Loop -.->|i = 2| A2
+ Loop -.->|i = 3| A3
+ Loop -.->|i = 4| A4
 
 %% Поток вывода данных
-Print ==>|Поток stdout| Terminal
+ Print ==>|Поток stdout| Terminal
 
 style StackArray fill:#11141a,stroke:#2d3748,color:#fff
 style ForLoopLogic fill:#1b1522,stroke:#4a1285,color:#fff
 style ConsoleTerminal fill:#1a1a1a,stroke:#333,color:#fff
+
 ```
 
 ---
