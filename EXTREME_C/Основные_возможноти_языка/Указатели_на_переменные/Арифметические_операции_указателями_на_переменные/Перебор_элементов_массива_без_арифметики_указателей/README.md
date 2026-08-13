@@ -37,7 +37,7 @@ subgraph StackArray [Массив arr в стеке Размер: SIZE = 5 20 б
 
 subgraph ForLoopLogic [Логика выполнения цикла for]
  Loop["Итератор i<br>(0 -> 1 -> 2 -> 3 -> 4)"]:::activeLoop
- Print['printf(&quot;%d&lt;br&gt;&quot;, arr[i])']:::outNode
+ Print["printf(&quot;%d&lt;br&gt;&quot;, arr[i])"]:::outNode
  Inc["Инкремент<br>i++"]:::activeLoop
  end
 
@@ -63,7 +63,6 @@ subgraph ConsoleTerminal [Вывод в консоль Terminal]
 style StackArray fill:#11141a,stroke:#2d3748,color:#fff
 style ForLoopLogic fill:#1b1522,stroke:#4a1285,color:#fff
 style ConsoleTerminal fill:#1a1a1a,stroke:#333,color:#fff
-
 ```
 
 ---
