@@ -63,6 +63,7 @@ subgraph ConsoleTerminal [Вывод в консоль Terminal]
 style StackArray fill:#11141a,stroke:#2d3748,color:#fff
 style ForLoopLogic fill:#1b1522,stroke:#4a1285,color:#fff
 style ConsoleTerminal fill:#1a1a1a,stroke:#333,color:#fff
+
 ```
 
 ---
