@@ -1,4 +1,4 @@
 # В РАЗРАБОТКЕ
 ---
-[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C)
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Арифметические_операции_указателями_на_переменные)
 ---

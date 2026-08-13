@@ -186,5 +186,5 @@ gcc main.c -Wall -Wextra -o pointer_demo
 * `make check` — автоматически собирает проект и запускает его под контролем утилиты **Valgrind** для поиска утечек памяти.
 * `make clean` — удаляет все скомпилированные файлы, очищая рабочую директорию.
 ---
-[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/exemple)
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/Арифметические_операции_указателями_на_переменные)
 ---

@@ -202,5 +202,5 @@ gcc main.c -Wall -Wextra -g -O0 -o ptr_demo
 ```
 
 ---
-[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Основные_возможноти_языка/Указатели_на_переменные/exemple)
+[← Назад](https://github.com/kolesnikovvitaliy/LERNING_C/tree/main/EXTREME_C/Указатели_на_переменные/Арифметические_операции_указателями_на_переменные)
 ---
