@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Функция для вывода сообщения об ошибке и завершения работы программы
+void fatal(char *message)
+{
+    char error_message[100];
+    strcpy(error_message, "[!!] Fatal Error ");
+    strncat(error_message, message, 83);
+    perror(error_message);
+    exit(-1);
+}
+
+// Оболочка для malloc() с проверкой ошибки
+void *ec_malloc(unsigned int size)
+{
+    void *ptr;
+    ptr = malloc(size);
+    if (ptr == NULL) {
+        fatal("in ec_malloc() on memory allocation");
+    }
+    return ptr;
+}
+
